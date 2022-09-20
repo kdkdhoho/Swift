@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="myProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cr1-FX-IfL">
+                                <rect key="frame" x="0.0" y="722" width="375" height="56"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="riA-qk-bYN">
+                                        <rect key="frame" x="0.0" y="0.0" width="278.33333333333331" height="56"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" keyboardAppearance="alert" smartDashesType="no" textContentType="url"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lK5-Go-UBU">
+                                        <rect key="frame" x="278.33333333333331" y="0.0" width="96.666666666666686" height="56"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="키보드내리기" titleAlignment="automatic">
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="zLy-Y7-QeN"/>
+                                </constraints>
+                            </stackView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSC-ml-ajF">
+                                <rect key="frame" x="0.0" y="44" width="375" height="678"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wqV-V8-9PW">
+                                <rect key="frame" x="100" y="404" width="175" height="4"/>
+                            </progressView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RSC-ml-ajF" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2jm-Vu-Wh6"/>
+                            <constraint firstItem="wqV-V8-9PW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="6Ox-HS-3ci"/>
+                            <constraint firstItem="Cr1-FX-IfL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7As-Wp-Y54"/>
+                            <constraint firstItem="Cr1-FX-IfL" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="FIh-Ds-das"/>
+                            <constraint firstItem="RSC-ml-ajF" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Yes-gP-7Sg"/>
+                            <constraint firstItem="RSC-ml-ajF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="nlH-cw-9pl"/>
+                            <constraint firstItem="Cr1-FX-IfL" firstAttribute="top" secondItem="RSC-ml-ajF" secondAttribute="bottom" id="ofE-E1-LBJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wqV-V8-9PW" secondAttribute="trailing" constant="100" id="rHi-ge-cWC"/>
+                            <constraint firstItem="wqV-V8-9PW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uur-Xs-j4t"/>
+                            <constraint firstItem="Cr1-FX-IfL" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wjB-MU-VpJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="button" destination="lK5-Go-UBU" id="5cV-UE-Z6Q"/>
+                        <outlet property="progressBar" destination="wqV-V8-9PW" id="8ti-F3-XiI"/>
+                        <outlet property="stackView" destination="Cr1-FX-IfL" id="s4k-Ox-puT"/>
+                        <outlet property="textField" destination="riA-qk-bYN" id="uho-sT-lkq"/>
+                        <outlet property="webView" destination="RSC-ml-ajF" id="BJm-iC-7sG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="130.40000000000001" y="108.39580209895054"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

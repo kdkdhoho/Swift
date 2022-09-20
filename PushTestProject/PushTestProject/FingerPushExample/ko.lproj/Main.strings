@@ -1,0 +1,39 @@
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "EyO-T5-k0c"; */
+"EyO-T5-k0c.text" = "Title";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "FfG-GB-xiE"; */
+"FfG-GB-xiE.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "메세지"; ObjectID = "LfB-y2-K9c"; */
+"LfB-y2-K9c.title" = "메세지";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "PjB-FO-ek3"; */
+"PjB-FO-ek3.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "앱 정보"; ObjectID = "Vwf-gH-i4R"; */
+"Vwf-gH-i4R.title" = "앱 정보";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Z66-1z-mTd"; */
+"Z66-1z-mTd.text" = "Title";
+
+/* Class = "UITabBarItem"; title = "태그"; ObjectID = "aSt-Kw-2zN"; */
+"aSt-Kw-2zN.title" = "태그";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "e2d-6T-3Oj"; */
+"e2d-6T-3Oj.text" = "Detail";
+
+/* Class = "UITabBarItem"; title = "푸시 설정"; ObjectID = "epf-Os-ltE"; */
+"epf-Os-ltE.title" = "푸시 설정";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "ezx-FH-b8f"; */
+"ezx-FH-b8f.text" = "Detail";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "iY5-QO-2pg"; */
+"iY5-QO-2pg.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "jkq-qr-xIl"; */
+"jkq-qr-xIl.text" = "Title";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "xWH-nX-3M1"; */
+"xWH-nX-3M1.text" = "Detail";

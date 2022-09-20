@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4925d769-57c4-804d-be0d-ce0ebddf17d9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "4925d769-57c4-804d-be0d-ce0ebddf17d9" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4925d769-57c4-804d-be0d-ce0ebddf17d9" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "84470EB6-DF63-4F21-A052-762647D19E3D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4925d769-57c4-804d-be0d-ce0ebddf17d9" : "svn\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FingerPushExample",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FingerPushExample\/배포용\/swift\/FingerPushExample\/FingerPushExample.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/server.kissoft.co.kr:9090\/svn\/FingerPush_3_0_SDK_IOS",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4925d769-57c4-804d-be0d-ce0ebddf17d9"
+    }
+  ]
+}
