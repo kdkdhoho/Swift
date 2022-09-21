@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -16,9 +16,9 @@ class TabBarController: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     // MARK: - Navigation
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "PopUpSegue"){
             let navi = segue.destination as! UINavigationController
@@ -26,10 +26,10 @@ class TabBarController: UITabBarController {
             child.dicData = (sender as! [AnyHashable: Any] as [NSObject : AnyObject]?)
         }
     }
-    
+
     // MARK: - 팝업
     func showPopUp(_ param:[AnyHashable: Any]){
         performSegue(withIdentifier: "PopUpSegue", sender:param)
     }
-    
+
 }

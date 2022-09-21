@@ -1,5 +1,6 @@
 import UIKit
 import UserNotifications
+import finger
 
 @UIApplicationMain
 
@@ -9,9 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     private let fingerManager = finger.sharedData()
     let appKey = "ENNGQZ8C4FAJ"
     let appSecret = "evZhtSXPKXDpPg9zwpEb0N3Rf9riGluX"
+    var userInfo: Dictionary<AnyHashable, Any> = [:]
 
+    /* 앱이 실행될 때 메소드 실행 */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         
         print("SdkVer : \(String(describing: finger.getSdkVer()))")
         printLine()
@@ -33,9 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func registeredForRemoteNotifications(application: UIApplication) {
                 
         #if !targetEnvironment(simulator)
-        
         if #available(iOS 10.0, *) {
-        
             let center = UNUserNotificationCenter.current()
             center.delegate = self
             // 카테고리를 이용한 NotificationAction
@@ -47,22 +47,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //            center.setNotificationCategories([category])
              
             center.requestAuthorization(options: [.alert,.badge,.sound], completionHandler: { (granted, error) in
-                
                 print("granted : \(granted) / error : \(String(describing: error))")
                 self.printLine()
                 
                 DispatchQueue.main.async(execute: {
                     application.registerForRemoteNotifications()
                 })
-                
             })
-
         }
                 
         #endif
     }
     
-    // 기기 등록이 되면 실행
+    /* 기기 등록이 되면 실행 */
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         print("DeviceToken: \(deviceToken.description)")
@@ -106,20 +103,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     //MARK: - 푸시 얼럿
+    
+    /* 푸시 오기 전 함수 실행 */
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        self.userInfo = notification.request.content.userInfo
+        print("userInfo of AppDelegate.swift = \(self.userInfo)")
+        printLine()
         
         completionHandler([.alert,.sound])
     }
     
-    // 푸시 터치 시 실행
+    /* 푸시 터치 시 함수 실행 */
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        let userInfo = response.notification.request.content.userInfo
-        print("\(userInfo)")
+        self.userInfo = response.notification.request.content.userInfo
+        print("userInfo of AppDelegate.swift = \(self.userInfo)")
         printLine()
         
         /*핑거푸시 읽음처리*/
-        checkPush(userInfo)
+        checkPush(self.userInfo)
 
         let strAction = response.actionIdentifier
         print(strAction)
@@ -132,33 +135,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     //MARK: -
     func showPopUp(userInfo:[AnyHashable: Any]){
-        
         var topRootViewController = UIApplication.shared.keyWindow!.rootViewController
         
-        while topRootViewController!.presentedViewController != nil
-        {
+        while topRootViewController!.presentedViewController != nil {
             topRootViewController = topRootViewController!.presentedViewController
         }
         
-        if topRootViewController!.isKind(of: UINavigationController.self){
-            
+        if topRootViewController!.isKind(of: UINavigationController.self) {
             let root = (topRootViewController as! UINavigationController).viewControllers.first
-            
-            if root!.isKind(of: PopUpTableViewController.self){
-                
-                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+            if root!.isKind(of: PopUpTableViewController.self) {
                 let child = mainStoryboard.instantiateViewController(withIdentifier: "PopUpTableViewController") as! PopUpTableViewController
                 child.dicData = userInfo as [NSObject : AnyObject]?
                 (topRootViewController as! UINavigationController).pushViewController(child, animated: false)
-                
             }
-            
+            if (root!.isKind(of: ViewController.self)) {
+                // webViewController에 값 저장하고 topRootViewController에 push(WebViewController)
+                let child = mainStoryboard.instantiateViewController(withIdentifier: "webViewController") as! WebViewController
+                child.urlStr = self.userInfo["weblink"] as? String
+                (topRootViewController as! UINavigationController).pushViewController(child, animated: true)
+            }
         } else if topRootViewController!.isKind(of: TabBarController.self) {
-            
             (topRootViewController as! TabBarController).showPopUp(userInfo)
-            
         }
-        
     }
     
     //MARK: - 푸시 오픈 체크
@@ -171,19 +171,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     //MARK: - UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
     func printLine() {
-        print("------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------")
     }
 }
-

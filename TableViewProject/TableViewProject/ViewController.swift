@@ -31,12 +31,33 @@ struct Post: Codable {
     var donateCheer: Bool?
 }
 
+//struct Alert: Codable {
+//    var body: String?
+//    var title: String?
+//}
+//
+//struct Aps: Codable {
+//    var alert: Alert?
+//    var badge: String?
+//    var category: String?
+////    var "mutable-content": String?
+//    var sound: String
+//}
+//
+//struct UserInfo: Codable {
+//    var weblink: String?
+//    var aps: Aps?
+//    var imgUrl: String?
+//    var labelCode: String?
+//    var code: String?
+//    var msgTag: String?
+//    var src: String?
+//}
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    
     let url: String = "http://valuetogether.tk/fundraisings/1"
-    
     var post: Post?
     
 //    var keys: [String] = ["title", "subTitle", "content", "targetAmount", "startDate", "endDate", "tag", "link", "image", "donateCheer", "donation", "comment"]
@@ -58,7 +79,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
-                
             }
         })
     }
@@ -103,14 +123,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if (cellText == "link") {
             // when touch 'link' cell
-            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "webViewController") as? WebViewController else { return }
-            
-//            nextVC.urlStr = post?.link?.first?.name
-            nextVC.urlStr = AppDelegate.fingerManager?.requestPushContent(withBlock: userInfo, { posts, error in
-                print(posts)
-            })
-            
-            self.navigationController?.pushViewController(nextVC, animated: true)
+            touchLinkCell()
+//            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "webViewController") as? WebViewController else { return }
+//
+////            nextVC.urlStr = post?.link?.first?.name
+////            nextVC.urlStr = connectWebLink()
+//
+//            self.navigationController?.pushViewController(nextVC, animated: true)
         }
         else if (cellText == "image") {
             // when touch 'image' cell
@@ -129,6 +148,30 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func touchLinkCell() {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "webViewController") as? WebViewController else { return }
+        
+//            nextVC.urlStr = post?.link?.first?.name
+        nextVC.urlStr = connectWebLink()
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    /* 저장해서 접속하는 방식 */
+    func connectWebLink() -> String? {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let userInfo = appDelegate.userInfo as! [String: Any]
+
+        print("type of userInfo = \(type(of: userInfo))")
+        print("ViewController.userInfo = \(userInfo)")
+
+        if(userInfo["weblink"] as? String == nil) {
+            return post?.link?.first?.name
+        } else {
+            return userInfo["weblink"] as? String
+        }
+    }
+    
     func setReceiveData(key: String!) -> Any {
         if(key == "title") {
             return post?.title as Any
@@ -142,5 +185,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return "nothing"
     }
+    
     
 }
