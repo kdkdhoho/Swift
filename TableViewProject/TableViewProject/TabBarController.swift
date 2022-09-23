@@ -18,18 +18,17 @@ class TabBarController: UITabBarController {
     }
 
     // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "PopUpSegue"){
-            let navi = segue.destination as! UINavigationController
-            let child = navi.viewControllers.first as! PopUpTableViewController
-            child.dicData = (sender as! [AnyHashable: Any] as [NSObject : AnyObject]?)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if(segue.identifier == "PopUpSegue"){
+//            let navi = segue.destination as! UINavigationController
+//            let child = navi.viewControllers.first as! PopUpTableViewController
+//            child.dicData = (sender as! [AnyHashable: Any] as [NSObject : AnyObject]?)
+//        }
+//    }
 
     // MARK: - 팝업
-    func showPopUp(_ param:[AnyHashable: Any]){
-        performSegue(withIdentifier: "PopUpSegue", sender:param)
-    }
+//    func showPopUp(_ param:[AnyHashable: Any]){
+//        performSegue(withIdentifier: "PopUpSegue", sender:param)
+//    }
 
 }

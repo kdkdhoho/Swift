@@ -162,9 +162,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let userInfo = appDelegate.userInfo as! [String: Any]
 
-        print("type of userInfo = \(type(of: userInfo))")
-        print("ViewController.userInfo = \(userInfo)")
-
         if(userInfo["weblink"] as? String == nil) {
             return post?.link?.first?.name
         } else {
@@ -185,6 +182,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         return "nothing"
     }
-    
-    
 }

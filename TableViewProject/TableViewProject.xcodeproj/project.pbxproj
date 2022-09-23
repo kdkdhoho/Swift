@@ -12,6 +12,7 @@
 		F784F4A228D86657005001C5 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784F4A128D86657005001C5 /* NotificationService.swift */; };
 		F784F4AA28D86ADB005001C5 /* fingerNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = F784F48428D863EB005001C5 /* fingerNotificationService.m */; };
 		F784F4AF28D86D96005001C5 /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F784F49F28D86657005001C5 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F784F4F828DAB6DB005001C5 /* NoticeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F784F4F728DAB6DB005001C5 /* NoticeTableViewController.swift */; };
 		F7ACAA0728D4192D0095BB3C /* PopUpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ACAA0628D4192D0095BB3C /* PopUpTableViewController.swift */; };
 		F7ACAA0A28D4199D0095BB3C /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ACAA0928D4199D0095BB3C /* TabBarController.swift */; };
 		F7F6BABE28C71E910027D54A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F6BABD28C71E910027D54A /* AppDelegate.swift */; };
@@ -68,6 +69,7 @@
 		F784F49F28D86657005001C5 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F784F4A128D86657005001C5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		F784F4A328D86657005001C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F784F4F728DAB6DB005001C5 /* NoticeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeTableViewController.swift; sourceTree = "<group>"; };
 		F7ACAA0628D4192D0095BB3C /* PopUpTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpTableViewController.swift; sourceTree = "<group>"; };
 		F7ACAA0928D4199D0095BB3C /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F7F6BABA28C71E910027D54A /* TableViewProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TableViewProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,9 +129,9 @@
 		F7F6BAB128C71E910027D54A = {
 			isa = PBXGroup;
 			children = (
-				F784F4A028D86657005001C5 /* NotificationService */,
-				F784F48328D863EB005001C5 /* Frameworks */,
 				F7F6BABC28C71E910027D54A /* TableViewProject */,
+				F784F48328D863EB005001C5 /* Frameworks */,
+				F784F4A028D86657005001C5 /* NotificationService */,
 				F7F6BABB28C71E910027D54A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,16 +151,17 @@
 				F7F6BB0D28D2A6250027D54A /* TableViewProject.entitlements */,
 				F7F6BABD28C71E910027D54A /* AppDelegate.swift */,
 				F7ACAA0928D4199D0095BB3C /* TabBarController.swift */,
-				F7ACAA0628D4192D0095BB3C /* PopUpTableViewController.swift */,
 				F7F6BABF28C71E910027D54A /* SceneDelegate.swift */,
 				F7F6BAC128C71E910027D54A /* ViewController.swift */,
-				F7F6BAC328C71E910027D54A /* Main.storyboard */,
-				F7F6BAC628C71E930027D54A /* Assets.xcassets */,
-				F7F6BAC828C71E930027D54A /* LaunchScreen.storyboard */,
-				F7F6BACB28C71E930027D54A /* Info.plist */,
 				F7F6BAEF28C85A730027D54A /* DetailViewController.swift */,
 				F7F6BAF928D064960027D54A /* WebViewController.swift */,
 				F7F6BAFB28D07B740027D54A /* ScrollViewController.swift */,
+				F784F4F728DAB6DB005001C5 /* NoticeTableViewController.swift */,
+				F7ACAA0628D4192D0095BB3C /* PopUpTableViewController.swift */,
+				F7F6BAC328C71E910027D54A /* Main.storyboard */,
+				F7F6BAC828C71E930027D54A /* LaunchScreen.storyboard */,
+				F7F6BAC628C71E930027D54A /* Assets.xcassets */,
+				F7F6BACB28C71E930027D54A /* Info.plist */,
 				F75026B528D813C20037C5EE /* TableViewProject-Bridging-Header.h */,
 			);
 			path = TableViewProject;
@@ -282,6 +285,7 @@
 				F7F6BABE28C71E910027D54A /* AppDelegate.swift in Sources */,
 				F7ACAA0728D4192D0095BB3C /* PopUpTableViewController.swift in Sources */,
 				F7F6BAC028C71E910027D54A /* SceneDelegate.swift in Sources */,
+				F784F4F828DAB6DB005001C5 /* NoticeTableViewController.swift in Sources */,
 				F7F6BAFA28D064960027D54A /* WebViewController.swift in Sources */,
 				F7F6BAF028C85A730027D54A /* DetailViewController.swift in Sources */,
 			);

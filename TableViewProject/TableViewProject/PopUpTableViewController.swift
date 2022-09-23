@@ -1,13 +1,6 @@
-//
-//  PopUpTableViewController.swift
-//  TableViewProject
-//
-//  Created by 김동호 on 2022/09/16.
-//
-
 import UIKit
 
-class PopUpTableViewController: UITableViewController ,UITextViewDelegate{
+class PopUpTableViewController: UITableViewController ,UITextViewDelegate {
 
     var dicData:[AnyHashable: Any]?
     
@@ -39,7 +32,6 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate{
         self.navigationController?.toolbar.tintColor = .black
         
         getPushContents()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,15 +40,11 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate{
     }
 
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
         return dicPushContents.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCellIdentifier", for: indexPath)
         // Configure the cell...
         
@@ -68,9 +56,8 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate{
         cell.detailTextLabel?.numberOfLines = 0
         
         return cell
-        
     }
-        
+    
     // MARK: -
     @objc func closeSelf(){
         self.dismiss(animated: true, completion: nil)

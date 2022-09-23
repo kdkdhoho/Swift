@@ -79,7 +79,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-            
+        
+        print("here")
+        
         if let dicAps = userInfo["aps"] as? Dictionary<String, Any> {
             
             if let ca = dicAps["content-available"] {
@@ -108,8 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         self.userInfo = notification.request.content.userInfo
-        print("userInfo of AppDelegate.swift = \(self.userInfo)")
-        printLine()
         
         completionHandler([.alert,.sound])
     }
@@ -118,8 +118,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         self.userInfo = response.notification.request.content.userInfo
-        print("userInfo of AppDelegate.swift = \(self.userInfo)")
-        printLine()
         
         /*핑거푸시 읽음처리*/
         checkPush(self.userInfo)
@@ -151,13 +149,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 (topRootViewController as! UINavigationController).pushViewController(child, animated: false)
             }
             if (root!.isKind(of: ViewController.self)) {
-                // webViewController에 값 저장하고 topRootViewController에 push(WebViewController)
                 let child = mainStoryboard.instantiateViewController(withIdentifier: "webViewController") as! WebViewController
                 child.urlStr = self.userInfo["weblink"] as? String
                 (topRootViewController as! UINavigationController).pushViewController(child, animated: true)
             }
         } else if topRootViewController!.isKind(of: TabBarController.self) {
-            (topRootViewController as! TabBarController).showPopUp(userInfo)
+//            (topRootViewController as! TabBarController).showPopUp(userInfo)
         }
     }
     
@@ -178,6 +175,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func printLine() {
-        print("--------------------------------------------------------------------------------------------------------------")
+        print("-------------------------------------------------------------------------------------------")
     }
 }
