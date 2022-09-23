@@ -18,6 +18,7 @@ struct Devices: Codable {
 class NoticeTableViewController: UITableViewController {
     
     var contents: Array<Devices>?
+    var images: [UIImage] = []
     var refreshController : UIRefreshControl = UIRefreshControl()
     let activityIndicatorView:UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
 
@@ -42,12 +43,6 @@ class NoticeTableViewController: UITableViewController {
         requestPushList()
 
         configureNavigation()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     //MARK: - 푸시리스트 요청
@@ -59,6 +54,18 @@ class NoticeTableViewController: UITableViewController {
                     
                     do {
                         self.contents = try JSONDecoder().decode(Array<Devices>.self, from: jsonData)
+                        
+                        for content in self.contents ?? [] {
+                            if(content.image_yn == "N") {
+                                self.images.append(UIImage())
+                            }
+                            else {
+                                let url = URL(string: content.imgUrl!)
+                                let data = try! Data(contentsOf: url!)
+                                let image = UIImage(data: data)
+                                self.images.append(image!)
+                            }
+                        }
                         
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
@@ -76,6 +83,18 @@ class NoticeTableViewController: UITableViewController {
             self.activityIndicatorView.stopAnimating()
             self.refreshController.endRefreshing()
         })
+    }
+    
+    func loadImage(urlStr: String!) -> UIImage {
+        var result = UIImage()
+        let url = URL(string: urlStr)
+        
+        DispatchQueue.global().async {
+            let data = try? Data(contentsOf: url!)
+            result = UIImage(data: data!)!
+        }
+        
+        return result
     }
     
     // MARK: - UITableViewDelegate
@@ -109,7 +128,7 @@ class NoticeTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: false)
         
         /* 푸시 누르면 웹 링크로 접속 */
-        if (dic?.imgUrl != "") {
+        if (dic?.link != "" && dic?.link != nil) {
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let child = mainStoryboard.instantiateViewController(withIdentifier: "webViewController") as! WebViewController
             child.urlStr = dic?.link
@@ -143,21 +162,9 @@ class NoticeTableViewController: UITableViewController {
         let item = contents?[indexPath.row]
 
         cell.textLabel?.text = String(format: "MESSAGE : %@", arguments: [(item?.content ?? "") as String])
-        cell.detailTextLabel?.text = String(format: "Open : %@\nImgUrl : %@\nWebLink : %@", arguments: [(item?.opened ?? "") as String, (item?.imgUrl ?? "") as String, (item?.imgUrl ?? "") as String])
+        cell.detailTextLabel?.text = String(format: "Open : %@\nImgUrl : %@\nWebLink : %@", arguments: [(item?.opened ?? "") as String, (item?.imgUrl ?? "") as String, (item?.link ?? "") as String])
     
-        /* 이미지 그리기 */
-        if(item?.imgUrl != "") {
-            let url = URL(string: (item?.imgUrl)!)
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: url!)
-
-                DispatchQueue.main.async {
-                    cell.imageView?.image = UIImage(data: data!)
-                }
-            }
-        } else {
-            cell.imageView?.image = nil
-        }
+        cell.imageView?.image = images[indexPath.row]
 
         return cell
     }
