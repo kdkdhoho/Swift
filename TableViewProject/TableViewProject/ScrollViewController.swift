@@ -17,11 +17,6 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
         scrollView.minimumZoomScale = 1.0
         
         scrollView.clipsToBounds = true
-        
-//        imageView.center = scrollView.center
-        
-//        loadImage()
-//        setImageView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,13 +32,12 @@ class ScrollViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = UIImage(data: data)
             setImageView()
         } catch {
-            print("<Fail func 'loadImage()'> : ", error.localizedDescription)
+            print("Error of ScrollVeiwController.loadImage() => \(error.localizedDescription)")
         }
     }
     
     func loadImage(completion: @escaping (_ data: Data?, _ error: Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: url!, completionHandler: { data, response, error in
-//            print("<response>: \(String(describing: response))")
             
             if let error = error {
                 completion(nil, error)

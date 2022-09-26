@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         print("SdkVer : \(String(describing: finger.getSdkVer()))")
-        printLine()
         
         #if DEBUG
         fingerManager?.setAppKey(appKey)
@@ -48,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
              
             center.requestAuthorization(options: [.alert,.badge,.sound], completionHandler: { (granted, error) in
                 print("granted : \(granted) / error : \(String(describing: error))")
-                self.printLine()
                 
                 DispatchQueue.main.async(execute: {
                     application.registerForRemoteNotifications()
@@ -74,13 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("finger DeviceIdx : " + ((self.fingerManager?.getDeviceIdx()) ?? "없음"))
             
             print("posts: \(String(describing: posts)) | error: \(String(describing: error))")
-            self.printLine()
         })
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        
-        print("here")
         
         if let dicAps = userInfo["aps"] as? Dictionary<String, Any> {
             
@@ -101,7 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("\(error)")
-        printLine()
     }
     
     //MARK: - 푸시 얼럿
@@ -123,7 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         checkPush(self.userInfo)
 
         let strAction = response.actionIdentifier
-        print(strAction)
         if strAction.contains("yes") || strAction.contains("UNNotificationDefaultActionIdentifier") {
             showPopUp(userInfo: userInfo)
         }
@@ -148,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 child.dicData = userInfo as [NSObject : AnyObject]?
                 (topRootViewController as! UINavigationController).pushViewController(child, animated: false)
             }
-            if (root!.isKind(of: ViewController.self)) {
+            else if (root!.isKind(of: ViewController.self)) {
                 let child = mainStoryboard.instantiateViewController(withIdentifier: "webViewController") as! WebViewController
                 child.urlStr = self.userInfo["weblink"] as? String
                 (topRootViewController as! UINavigationController).pushViewController(child, animated: true)
@@ -161,8 +154,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //MARK: - 푸시 오픈 체크
     func checkPush(_ UserInfo : [AnyHashable : Any]){
         fingerManager?.requestPushCheck(withBlock: UserInfo , { (posts, error) -> Void in
-            print("posts: \(String(describing: posts)) error: \(String(describing: error))")
-            self.printLine()
+            print("Result of AppDelegate.checkPush() => posts: \(String(describing: posts)) error: \(String(describing: error))")
         })
     }
 
@@ -172,9 +164,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-    }
-    
-    func printLine() {
-        print("-------------------------------------------------------------------------------------------")
     }
 }

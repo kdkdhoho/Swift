@@ -11,12 +11,6 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
 
         self.navigationItem.title = myTitle
         self.tableView.tableFooterView = UIView()
@@ -36,7 +30,6 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -46,7 +39,6 @@ class PopUpTableViewController: UITableViewController ,UITextViewDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCellIdentifier", for: indexPath)
-        // Configure the cell...
         
         let strKey = dicPushContents.keys.sorted()[indexPath.row]
         cell.textLabel?.text = strKey

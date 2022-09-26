@@ -1,4 +1,5 @@
 import UIKit
+import finger
 
 struct Devices: Codable {
     let code_yn: String?
@@ -13,12 +14,13 @@ struct Devices: Codable {
     var opened: String?
     let title: String?
     let type: String?
+    var image: Data?
 }
 
 class NoticeTableViewController: UITableViewController {
     
     var contents: Array<Devices>?
-    var images: [UIImage] = []
+    var datas: [Data] = []
     var refreshController : UIRefreshControl = UIRefreshControl()
     let activityIndicatorView:UIActivityIndicatorView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
 
@@ -47,23 +49,34 @@ class NoticeTableViewController: UITableViewController {
     
     //MARK: - 푸시리스트 요청
     @objc func requestPushList() {
-        finger.sharedData()?.requestPushList({(posts, error) -> Void in
+        finger.sharedData()?.requestPushList({ (posts, error) -> Void in
             if (posts != nil) {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: posts as Any, options: JSONSerialization.WritingOptions.prettyPrinted)
                     
                     do {
                         self.contents = try JSONDecoder().decode(Array<Devices>.self, from: jsonData)
-                        
+                
                         for content in self.contents ?? [] {
                             if(content.image_yn == "N") {
-                                self.images.append(UIImage())
+                                self.datas.append(Data())
                             }
                             else {
                                 let url = URL(string: content.imgUrl!)
-                                let data = try! Data(contentsOf: url!)
-                                let image = UIImage(data: data)
-                                self.images.append(image!)
+
+                                /* 로딩에 오래 걸림. 이미지 순서는 정확. 화면 버벅임 없음 */
+//                                let data = try Data(contentsOf: url!)
+//                                self.datas.append(data)
+
+                                /* 로딩이 짧음. 이미지 순서 뒤죽박죽. 화면 버벅임 없음 */
+                                self.loadData(with: url!, completion: { (result, error) in
+                                    if let error = error {
+                                        print("<error>: \(error.localizedDescription)")
+                                    }
+                                    if let result = result {
+                                        self.datas.append(result)
+                                    }
+                                })
                             }
                         }
                         
@@ -71,7 +84,6 @@ class NoticeTableViewController: UITableViewController {
                             self.tableView.reloadData()
                         }
                         
-//                        print("posts:\(posts!)")
                     } catch let jsonErr {
                         print("\(jsonErr)" )
                     }
@@ -85,16 +97,20 @@ class NoticeTableViewController: UITableViewController {
         })
     }
     
-    func loadImage(urlStr: String!) -> UIImage {
-        var result = UIImage()
-        let url = URL(string: urlStr)
+    func loadData(with url: URL, completion: @escaping (_ data: Data?, _ error: Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            if let data = data {
+                completion(data, nil)
+            } else {
+                completion(nil, nil)
+            }
+        })
         
-        DispatchQueue.global().async {
-            let data = try? Data(contentsOf: url!)
-            result = UIImage(data: data!)!
-        }
-        
-        return result
+        task.resume()
     }
     
     // MARK: - UITableViewDelegate
@@ -164,7 +180,9 @@ class NoticeTableViewController: UITableViewController {
         cell.textLabel?.text = String(format: "MESSAGE : %@", arguments: [(item?.content ?? "") as String])
         cell.detailTextLabel?.text = String(format: "Open : %@\nImgUrl : %@\nWebLink : %@", arguments: [(item?.opened ?? "") as String, (item?.imgUrl ?? "") as String, (item?.link ?? "") as String])
     
-        cell.imageView?.image = images[indexPath.row]
+        cell.imageView?.image = UIImage(data: datas[indexPath.row])
+        
+//        cell.imageView?.image = images[indexPath.row]
 
         return cell
     }
